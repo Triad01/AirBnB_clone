@@ -3,25 +3,34 @@
     Module contains unittetst for base model
 """
 import unittest
+from datetime import datetime
 from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
     """class defines tests for base model"""
 
-    def setup(self):
+    def setUp(self):
         """setup method for class test"""
-        my_model = BaseModel()
-        my_model.name = "My First Model"
-        my_model.my_number = 89
+        self.my_model = BaseModel()
+        self.my_model.name = "My First Model"
+        self.my_model.my_number = 89
 
     def test_name(self):
         """tests model name"""
-        self.assertEqual(my_model.name, "My First Model")
+        self.assertEqual(self.my_model.name, "My First Model")
 
     def test_number(self):
         """tests model number"""
-        self.assertEqual(my_model.my_number, 89)
+        self.assertEqual(self.my_model.my_number, 89)
+
+    def test_id(self):
+        """tests id"""
+        self.assertTrue(self.my_model.id)
+
+    def test_save(self):
+        self.my_model.save()
+        self.assertNotEqual(self.my_model.created_at, datetime.now())
 
 
 """
