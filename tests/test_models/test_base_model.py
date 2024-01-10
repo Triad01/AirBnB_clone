@@ -2,7 +2,7 @@
 """
     Module contains unittetst for base model
 """
-import unittest
+:mport unittest
 from datetime import datetime
 from models.base_model import BaseModel
 

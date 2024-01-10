@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-import uuid
 from datetime import datetime
+import uuid
+#from models import storage
+
 """
     Module contains base model that defines all common
     attributes/methods for other classes
@@ -14,7 +16,7 @@ class BaseModel():
         if kwargs:
             for (key, value) in kwargs.items():
                 if key != "__class__":
-                    if key in ["created_at", "updated_at"]:
+                    if key in ["created_at", "updated_at"] and isinstance(value, str):
                         date = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                         setattr(self, key, date)
                     else:
@@ -30,13 +32,15 @@ class BaseModel():
 
     def save(self):
         """updates modification time for 'update_at' method"""
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
+        from models import storage
+        storage.new(self)
+        storage.save()
 
     def to_dict(self):
-        """
-            creates a dictionary representation
+        """creates a dictionary representation
             suitable for serialization/deserialization
-        """
+         """
         obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
         obj_dict["created_at"] = self.created_at.isoformat()
