@@ -11,6 +11,7 @@ from models.base_model import BaseModel
 class FileStorage():
     __file_path = "file.json"
     __objects = {}
+    classes = {"BaseModel": BaseModel}
 
     def all(self):
         """Return the dictionary __objects"""
