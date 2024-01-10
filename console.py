@@ -42,3 +42,7 @@ class HBNBCommand(cmd.Cmd):
     # this metod is to be updated and documented later.
     def do_help(self, arg: str) -> bool | None:
         return super().do_help(arg)
+    
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
