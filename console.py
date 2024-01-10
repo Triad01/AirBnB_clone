@@ -40,8 +40,15 @@ class HBNBCommand(cmd.Cmd):
         return True
     
     # this metod is to be updated and documented later.
-    def do_help(self, arg: str) -> bool | None:
-        return super().do_help(arg)
+    def do_help(self, line_arg: str) -> bool | None:
+        """ This class metod handles the implementations of the Help
+            command.
+
+            Attributes:
+                line_arg (str): this represents the line argument of which
+                the command is to be executed by the shell console.
+        """
+        return super().do_help(line_arg)
     
 
 if __name__ == "__main__":
