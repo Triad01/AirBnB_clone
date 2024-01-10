@@ -13,7 +13,6 @@ class HBNBCommand(cmd.Cmd):
         This is the class definition for the HBNB interactive shell.
     """
 
-
     prompt = "(hbnb)"
 
     def do_quit(self, line):
@@ -38,8 +37,7 @@ class HBNBCommand(cmd.Cmd):
         """
 
         return True
-    
-    # this metod is to be updated and documented later.
+
     def do_help(self, line_arg: str) -> bool | None:
         """ This class metod handles the implementations of the Help
             command.
@@ -49,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
                 the command is to be executed by the shell console.
         """
         return super().do_help(line_arg)
-    
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
