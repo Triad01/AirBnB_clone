@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 from datetime import datetime
 import uuid
-#from models import storage
-
 """
     Module contains base model that defines all common
     attributes/methods for other classes
