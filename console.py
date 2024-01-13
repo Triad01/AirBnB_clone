@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""our console"""
+"""Our console"""
 import cmd
-import sys
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,17 +11,14 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-        """Exit the program"""
+        """Handle the End-Of-File condition"""
+        print("")  # Print a newline for a cleaner output
         return True
 
     def emptyline(self):
-        """Do nothing for empty line"""
+        """Called when an empty line is entered in response to the prompt."""
         pass
 
+
 if __name__ == '__main__':
-    if not sys.stdin.isatty():
-        # Read commands from standard input
-        commands = sys.stdin.read().splitlines()
-        HBNBCommand().onecmd('\n'.join(commands))
-    else:
-        HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
