@@ -15,9 +15,6 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(HBNB) "
 
-    def do_help(self, line):
-        """Get help on commands"""
-        super().do_help(line)
 
     def do_quit(self, line):
         """This class method handles the implementation of qutting the shell
@@ -101,87 +98,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in storage.classes:
-            print("** class doesn't exist **")
-            return
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-        instance_id = args[1]
-        key = "{}.{}".format(class_name, instance_id)
-        if key not in storage.all():
-            print("** no instance found **")
-            return
-        del storage.all()[key]
-        storage.save()
 
-    def do_all(self, line):
-        """
-            Prints all the string representation of all
-            instances based or not on the class name
-        """
-        args = line.split()
-        if not args:
-            print([str(obj) for obj in storage.all().values()])
-        elif args[0] not in storage.classes:
-            print("** class doesn't exist **")
-        else:
-            filtered_objects = []
-            for obj in storage.all().values():
-                if obj.__class__.__name__ == args[0]:
-                    filtered_objects.append(str(obj))
-            print(filtered_objects)
-
-    def do_update(self, line):
-        """
-            Updates an instance based on the class name
-            and id by adding or updating attribute
-        """
-        args = line.split()
-        if not args:
-            print("** class name missing **")
-            return
-        class_name = args[0]
-        if class_name not in storage.classes:
-            print("** class doesn't exist **")
-            return
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-        instance_id = args[1]
-        key = "{}.{}".format(class_name, instance_id)
-        if key not in storage.all():
-            print("** no instance found **")
-            return
-        if len(args) < 3:
-            print("** attribute name missing **")
-            return
-        attribute_name = args[2]
-        if len(args) < 4:
-            print("** value missing **")
-            return
-        attribute_value_str = args[3]
-
-        # Convert attribute value to the correct type based on the attribute
-        attribute_value = None
-        try:
-            attribute_value = eval(attribute_value_str)
-        except Exception as e:
-            print("** value missing **")
-            return
-
-        setattr(storage.all()[key], attribute_name, attribute_value)
-        storage.save()
-
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        # Non-interactive mode, read commands from file or string
-        input_source = open(sys.argv[1], "rt")
-        cmd_instance = HBNBCommand(stdin=input_source)
-        cmd_instance.use_rawinput = False
-        cmd_instance.print_prompt()
-        cmd_instance.cmdloop()
-        input_source.close()
+if __name__ == '__main__':
+    if not sys.stdin.isatty():
+        # Read commands from standard input
+        commands = sys.stdin.read().splitlines()
+        HBNBCommand().onecmd('\n'.join(commands))
     else:
         HBNBCommand().cmdloop()
