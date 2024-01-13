@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
     """
         This is the class definition for the HBNB interactive shell.
     """
-    prompt = "(hbnb) "
+    prompt = "(HBNB) "
 
     """Basic commands (CRUD) For interpreter"""
     def do_create(self, line):
@@ -180,4 +180,11 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    HBNBCommand().cmdloop()
+    import sys
+    if len(sys.argv) > 1:
+        input = open(sys.argv[1], "rt")
+        HBNBCommand(stdin=input).cmdloop()
+        input.close()
+    else:
+        HBNBCommand().cmdloop()
+        print("")

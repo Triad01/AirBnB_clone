@@ -2,7 +2,7 @@
 """
     Module contains unittetst for base model
 """
-:mport unittest
+import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
@@ -15,6 +15,11 @@ class TestBaseModel(unittest.TestCase):
         self.my_model = BaseModel()
         self.my_model.name = "My First Model"
         self.my_model.my_number = 89
+        self.my_model.created_at = datetime.now()
+
+    @unittest.skip("demonstrating skipping test")
+    def test_nothing(self):
+        self.fail("shouldnt happen")
 
     def test_name(self):
         """tests model name"""
@@ -30,6 +35,10 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         self.my_model.save()
+        self.assertNotEqual(self.my_model.created_at, datetime.now())
+
+    def test_data(self):
+        """tests the time"""
         self.assertNotEqual(self.my_model.created_at, datetime.now())
 
 
