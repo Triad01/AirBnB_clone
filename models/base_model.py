@@ -27,7 +27,7 @@ class BaseModel():
 
     def __str__(self):
         """Provides string representation of the instance object"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}]"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """updates modification time for 'update_at' method"""
