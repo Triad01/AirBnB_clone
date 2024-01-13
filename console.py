@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""Our console"""
+"""
+    This module contains the implementation of the interractive shell
+    for the HBNB console - The command interpreter
+"""
 import cmd
 
 
