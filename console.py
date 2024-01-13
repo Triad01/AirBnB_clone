@@ -6,6 +6,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import sys
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,7 +15,33 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(HBNB) "
 
-    """Basic commands (CRUD) For interpreter"""
+    def do_help(self, line):
+        """Get help on commands"""
+        super().do_help(line)
+
+    def do_quit(self, line):
+        """This class method handles the implementation of qutting the shell
+            line (str): this represents the command entered on the shell
+        """
+
+        return True
+
+    def emptyline(self):
+        """ This class method handles the implementation if user does
+            not enter a command.
+        """
+
+        pass
+
+    def do_EOF(self, line):
+        """ This class method handles the implementation of End-Of-File
+            condition.
+        Attributes:
+            line (str): this represents the command entered on the shell
+        """
+
+        return True
+
     def do_create(self, line):
         """
         Creates a new insance of the base model, saves it and prints the id
@@ -146,45 +173,15 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[key], attribute_name, attribute_value)
         storage.save()
 
-    def do_quit(self, line):
-        """This class method handles the implementation of qutting the shell
-            line (str): this represents the command entered on the shell
-        """
-
-        return True
-
-    def emptyline(self):
-        """ This class method handles the implementation if user does
-            not enter a command.
-        """
-
-        pass
-
-    def do_EOF(self, line):
-        """ This class method handles the implementation of End-Of-File
-            condition.
-        Attributes:
-            line (str): this represents the command entered on the shell
-        """
-
-        return True
-
-    def do_help(self, line_arg: str) -> bool | None:
-        """This class metod handles the implementations of the Help
-            command.
-            Attributes:
-                line_arg (str): this represents the line argument of which
-                       the command is to be executed by the shell console.
-        """
-        return super().do_help(line_arg)
-
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) > 1:
-        input = open(sys.argv[1], "rt")
-        HBNBCommand(stdin=input).cmdloop()
-        input.close()
+        # Non-interactive mode, read commands from file or string
+        input_source = open(sys.argv[1], "rt")
+        cmd_instance = HBNBCommand(stdin=input_source)
+        cmd_instance.use_rawinput = False
+        cmd_instance.print_prompt()
+        cmd_instance.cmdloop()
+        input_source.close()
     else:
         HBNBCommand().cmdloop()
-        print("")
