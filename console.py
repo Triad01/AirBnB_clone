@@ -155,6 +155,28 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[key], attribute_name, attribute_value)
         storage.save()
 
+    def do_count(self, line):
+        class_name = line.split(".")[0]
+        if class_name not in storage.classes:
+            print("** class doesn't exist **")
+        else:
+            instances_count = sum(1 for obj in storage.all().values() if obj.__class__.__name__ == class_name)
+            print(instances_count)
+
+    def default(self, line):
+        """Overrides the default cmd default comman"""
+        args = line.split(".")
+        class_name = args[0]
+        if line.endswith(".all()"):
+            self.do_all(class_name)
+        elif line.endswith(".count()"):
+            self.do_count(class_name)
+        elif line.endswith(".show()"):
+            self.do_show(line)
+
+        else:
+            print(f"** Unknown syntax: {line}")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
